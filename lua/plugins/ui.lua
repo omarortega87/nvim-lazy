@@ -2,6 +2,11 @@ return {
   {
     "snacks.nvim",
     opts = {
+      -- Notifications are shown by Neovim's native message area instead of
+      -- floating notification popups.
+      notifier = { enabled = false },
+      -- Use the native command-line prompt instead of a floating input popup.
+      input = { enabled = false },
       dashboard = {
         preset = {
           pick = function(cmd, opts)

@@ -6,6 +6,8 @@ Make a backup of your current Neovim files:
 
 ```shell
 mv ~/.config/nvim{,.bak}
+
+> 
 ```
 
 # optional but recommended
