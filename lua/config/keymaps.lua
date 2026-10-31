@@ -1,5 +1,10 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
-vim.keymap.set("n", "<leader><tab>", "<cmd>tabnext<cr>", { desc = "Next tab" })
-vim.keymap.set("n", "<leader><tab><S-tab>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+--
+-- Tab navigation already ships with LazyVim:
+--   <leader><tab>]  next tab
+--   <leader><tab>[  previous tab
+--   <leader><tab><tab>  new tab
+--   <leader><tab>d  close tab
+-- Do not map `<leader><tab>` itself: it would shadow that whole group.

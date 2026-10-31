@@ -20,15 +20,17 @@ return {
 
     opts.completion = opts.completion or {}
 
-    -- Never open the completion menu automatically while typing.
-    -- The menu is only shown when triggered manually with <C-Space>.
+    -- Show the menu automatically, but only when the LSP/keyword actually has
+    -- something to offer. Trigger characters (".", "(", etc.) are enabled
+    -- below, which is what makes member completion usable in TS/React.
     opts.completion.menu = opts.completion.menu or {}
-    opts.completion.menu.auto_show = false
+    opts.completion.menu.auto_show = true
 
-    -- Disable every automatic trigger so typing never requests or shows completions.
+    -- Keep the noisy triggers off (insert mode entry, backspace, snippets),
+    -- but enable keyword and trigger-character completion.
     opts.completion.trigger = vim.tbl_deep_extend("force", opts.completion.trigger or {}, {
-      show_on_keyword = false,
-      show_on_trigger_character = false,
+      show_on_keyword = true,
+      show_on_trigger_character = true,
       show_on_insert = false,
       show_on_insert_on_trigger_character = false,
       show_on_accept_on_trigger_character = false,
@@ -43,10 +45,11 @@ return {
     opts.completion.ghost_text = opts.completion.ghost_text or {}
     opts.completion.ghost_text.enabled = false
 
-    -- No preselection or auto-insertion: pick an item explicitly, then accept it.
+    -- Highlight the first item so <CR> accepts it, but never insert a
+    -- selection automatically while typing.
     opts.completion.list = opts.completion.list or {}
     opts.completion.list.selection = {
-      preselect = false,
+      preselect = true,
       auto_insert = false,
     }
 
