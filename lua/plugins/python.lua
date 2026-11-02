@@ -22,5 +22,53 @@ return {
         override_notify = false,
       },
     },
+    config = function(_, opts)
+      require("venv-selector").setup(opts)
+      -- Auto-detect local/pyenv/conda environments for projects that have not
+      -- been configured manually yet.
+      require("config.python_env").setup()
+    end,
+  },
+  {
+    -- venv-selector can only configure LSP clients that have a project root.
+    -- Treat environment markers as roots so projects that only contain a venv
+    -- still get their interpreter applied to Pyright/Ruff.
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+
+      local markers = {
+        {
+          "pyrightconfig.json",
+          "pyproject.toml",
+          "setup.py",
+          "setup.cfg",
+          "requirements.txt",
+          "Pipfile",
+          "ruff.toml",
+          ".ruff.toml",
+          ".venv",
+          "venv",
+          "virtualenv",
+          ".python-version",
+          "environment.yml",
+          "environment.yaml",
+        },
+        ".git",
+      }
+
+      for _, server in ipairs({ "pyright", "basedpyright", "ruff", "ruff_lsp" }) do
+        local server_opts = opts.servers[server]
+        if server_opts ~= false then
+          if type(server_opts) ~= "table" then
+            server_opts = {}
+            opts.servers[server] = server_opts
+          end
+          server_opts.root_markers = vim.deepcopy(markers)
+        end
+      end
+
+      return opts
+    end,
   },
 }
