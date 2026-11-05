@@ -161,6 +161,39 @@ These are LazyVim defaults. No direct `<leader><tab>` mapping overrides them.
 | `<leader>cs` | n | Symbols (Trouble) |
 | `<leader>cS` | n | LSP references/definitions (Trouble) |
 
+## Java (IntelliJ LSP backend)
+
+These mappings are buffer-local and exist only in Java/Kotlin buffers when the
+`intellij` backend is selected (`:JavaLsp intellij`, then `:restart`). With the
+default `jdtls` backend, LazyVim's Java mappings apply instead.
+
+| Key | Mode | Description |
+| --- | --- | --- |
+| `<leader>cjt` | n | Type hierarchy: subtypes |
+| `<leader>cjT` | n | Type hierarchy: supertypes |
+| `<leader>cji` | n | Call hierarchy: incoming |
+| `<leader>cjo` | n | Call hierarchy: outgoing |
+| `<leader>cjs` | n | Workspace symbols |
+| `<leader>db` | n | IntelliJ: toggle breakpoint |
+| `<leader>dB` | n | IntelliJ: conditional breakpoint |
+| `<leader>rr` | n | Run the main class at the cursor |
+| `<leader>rl` | n | Run the code lens on the current line |
+| `<leader>rd` | n | Debug the main class at the cursor |
+| `<leader>dc` | n | Continue |
+| `<leader>dn` | n | Step over |
+| `<leader>di` | n | Step into |
+| `<leader>do` | n | Step out |
+| `<leader>dq` | n | Stop the debug session |
+| `<leader>de` | n | Evaluate the expression at the cursor |
+| `<leader>dw` | n | Watch the expression at the cursor |
+| `<leader>dv` | n | Open the debug panel |
+
+`<leader>co` remains LazyVim's Organize Imports. `grr` (references) and `gra`
+(intentions/quick fixes) are also set buffer-locally by the IntelliJ client.
+
+`:JavaLsp status` shows the selected backend and the LSP clients attached to the
+current session.
+
 ## Diagnostics and quickfix
 
 | Key | Mode | Description |
